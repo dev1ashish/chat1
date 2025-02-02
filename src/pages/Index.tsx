@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ChatInterface } from '@/components/ChatInterface';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Plus, Send } from 'lucide-react';
+import { Plus, Send, Trash2 } from 'lucide-react';
 
 const Index = () => {
   const [syncEnabled, setSyncEnabled] = useState(true);
@@ -31,10 +31,24 @@ const Index = () => {
     setMasterInput('');
   };
 
+  const handleMasterClear = () => {
+    // Send the master clear event to all chat interfaces
+    const event = new CustomEvent('masterClear');
+    window.dispatchEvent(event);
+  };
+
   return (
     <div className="min-h-screen bg-background p-4">
       <div className="mb-4 space-y-4">
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-2">
+          <Button 
+            variant="destructive" 
+            onClick={handleMasterClear} 
+            className="gap-2"
+          >
+            <Trash2 className="h-4 w-4" />
+            Clear All Chats
+          </Button>
           <Button onClick={addInterface} className="gap-2">
             <Plus className="h-4 w-4" />
             Add Chat Interface

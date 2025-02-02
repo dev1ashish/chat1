@@ -53,12 +53,19 @@ export const ChatInterface = ({ onMessageSend, onSync, onClear, synced }: ChatIn
       onMessageSend(masterMessage);
     };
 
+    const handleMasterClear = () => {
+      setMessages([]);
+      onClear?.();
+    };
+
     window.addEventListener('masterInput', handleMasterInput as EventListener);
+    window.addEventListener('masterClear', handleMasterClear as EventListener);
 
     return () => {
       window.removeEventListener('masterInput', handleMasterInput as EventListener);
+      window.removeEventListener('masterClear', handleMasterClear as EventListener);
     };
-  }, [onMessageSend]);
+  }, [onMessageSend, onClear]);
 
   const handleSend = () => {
     if (!input.trim()) return;
