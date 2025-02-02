@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
@@ -41,6 +41,24 @@ export const ChatInterface = ({ onMessageSend, onSync, onClear, synced }: ChatIn
   const [topK, setTopK] = useState(50);
   const [repetitionPenalty, setRepetitionPenalty] = useState(1);
   const [stopSequences, setStopSequences] = useState('');
+
+  useEffect(() => {
+    const handleMasterInput = (event: CustomEvent<string>) => {
+      const masterMessage = event.detail;
+      const newMessage: Message = {
+        role: 'user',
+        content: masterMessage,
+      };
+      setMessages(prev => [...prev, newMessage]);
+      onMessageSend(masterMessage);
+    };
+
+    window.addEventListener('masterInput', handleMasterInput as EventListener);
+
+    return () => {
+      window.removeEventListener('masterInput', handleMasterInput as EventListener);
+    };
+  }, [onMessageSend]);
 
   const handleSend = () => {
     if (!input.trim()) return;
