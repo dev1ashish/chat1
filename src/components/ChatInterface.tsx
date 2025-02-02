@@ -16,6 +16,7 @@ interface ChatInterfaceProps {
   onMessageSend: (message: string) => void;
   onSync?: () => void;
   onClear?: () => void;
+  onDelete?: () => void;
   synced?: boolean;
 }
 
@@ -26,7 +27,7 @@ const models = [
   { id: 'palm-2', name: 'PaLM 2' },
 ];
 
-export const ChatInterface = ({ onMessageSend, onSync, onClear, synced }: ChatInterfaceProps) => {
+export const ChatInterface = ({ onMessageSend, onSync, onClear, onDelete, synced }: ChatInterfaceProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [model, setModel] = useState('gpt-3.5-turbo');
@@ -120,6 +121,16 @@ export const ChatInterface = ({ onMessageSend, onSync, onClear, synced }: ChatIn
             >
               <Trash2 className="h-4 w-4" />
             </Button>
+            {onDelete && (
+              <Button
+                variant="destructive"
+                size="icon"
+                onClick={onDelete}
+                className="text-white"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            )}
           </div>
         </div>
 

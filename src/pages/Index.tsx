@@ -22,6 +22,10 @@ const Index = () => {
     setInterfaces(prev => [...prev, prev.length + 1]);
   };
 
+  const deleteInterface = (id: number) => {
+    setInterfaces(prev => prev.filter(interfaceId => interfaceId !== id));
+  };
+
   const handleMasterInputSend = () => {
     if (!masterInput.trim()) return;
     
@@ -74,6 +78,7 @@ const Index = () => {
             onMessageSend={handleMessageSend}
             onSync={handleSync}
             synced={syncEnabled}
+            onDelete={() => deleteInterface(id)}
           />
         ))}
       </div>
