@@ -1,21 +1,36 @@
-# Welcome to your Lovable project
+# Multi-LLM Chat Interface
+
+A beautiful chat interface for interacting with multiple language models simultaneously, inspired by Vercel AI SDK's playground.
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/3a6558ab-e032-4553-b8f8-aa461fd9dc92
+**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+
+## Tech Stack
+
+This project is built with:
+- React + TypeScript for the frontend
+- Tailwind CSS for styling
+- shadcn/ui for UI components
+- Python FastAPI backend (coming soon)
+
+Features:
+- Multi-pane chat interface
+- Model selection
+- Hyperparameter tuning
+- Synchronized chats
+- Message history
+- Clear chat functionality
 
 ## How can I edit this code?
 
-There are several ways of editing your application.
+There are several ways of editing your application:
 
 **Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/3a6558ab-e032-4553-b8f8-aa461fd9dc92) and start prompting.
-
+Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
 Changes made via Lovable will be committed automatically to this repo.
 
 **Use your preferred IDE**
-
 If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
@@ -36,33 +51,9 @@ npm i
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/3a6558ab-e032-4553-b8f8-aa461fd9dc92) and click on Share -> Publish.
+Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
 
 ## I want to use a custom domain - is that possible?
 
