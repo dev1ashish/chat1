@@ -4,7 +4,8 @@ import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Slider } from './ui/slider';
 import { Card } from './ui/card';
-import { RefreshCw, Send, Trash2 } from 'lucide-react';
+import { RefreshCw, Send, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -29,8 +30,17 @@ export const ChatInterface = ({ onMessageSend, onSync, onClear, synced }: ChatIn
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [model, setModel] = useState('gpt-3.5-turbo');
+  const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
+
+  // Advanced parameters
   const [temperature, setTemperature] = useState(0.7);
   const [maxTokens, setMaxTokens] = useState(1000);
+  const [topP, setTopP] = useState(1);
+  const [frequencyPenalty, setFrequencyPenalty] = useState(0);
+  const [presencePenalty, setPresencePenalty] = useState(0);
+  const [topK, setTopK] = useState(50);
+  const [repetitionPenalty, setRepetitionPenalty] = useState(1);
+  const [stopSequences, setStopSequences] = useState('');
 
   const handleSend = () => {
     if (!input.trim()) return;
@@ -87,27 +97,104 @@ export const ChatInterface = ({ onMessageSend, onSync, onClear, synced }: ChatIn
             </Button>
           </div>
         </div>
-        <div className="flex gap-4 items-center">
-          <div className="flex-1">
-            <label className="text-sm text-gray-400">Temperature</label>
-            <Slider
-              value={[temperature]}
-              onValueChange={([value]) => setTemperature(value)}
-              max={1}
-              step={0.1}
-              className="my-2"
-            />
-          </div>
-          <div className="flex-1">
-            <label className="text-sm text-gray-400">Max Tokens</label>
-            <Input
-              type="number"
-              value={maxTokens}
-              onChange={(e) => setMaxTokens(Number(e.target.value))}
-              className="mt-1"
-            />
-          </div>
-        </div>
+
+        <Collapsible open={isAdvancedOpen} onOpenChange={setIsAdvancedOpen}>
+          <CollapsibleTrigger asChild>
+            <Button variant="ghost" className="w-full flex justify-between">
+              Advanced Settings
+              {isAdvancedOpen ? (
+                <ChevronUp className="h-4 w-4" />
+              ) : (
+                <ChevronDown className="h-4 w-4" />
+              )}
+            </Button>
+          </CollapsibleTrigger>
+          <CollapsibleContent className="space-y-4 mt-4">
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm text-gray-400">Temperature</label>
+                <Slider
+                  value={[temperature]}
+                  onValueChange={([value]) => setTemperature(value)}
+                  max={2}
+                  step={0.1}
+                  className="my-2"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-gray-400">Max Tokens</label>
+                <Input
+                  type="number"
+                  value={maxTokens}
+                  onChange={(e) => setMaxTokens(Number(e.target.value))}
+                  className="mt-1"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-gray-400">Top P</label>
+                <Slider
+                  value={[topP]}
+                  onValueChange={([value]) => setTopP(value)}
+                  max={1}
+                  step={0.05}
+                  className="my-2"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-gray-400">Frequency Penalty</label>
+                <Slider
+                  value={[frequencyPenalty]}
+                  onValueChange={([value]) => setFrequencyPenalty(value)}
+                  min={-2}
+                  max={2}
+                  step={0.1}
+                  className="my-2"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-gray-400">Presence Penalty</label>
+                <Slider
+                  value={[presencePenalty]}
+                  onValueChange={([value]) => setPresencePenalty(value)}
+                  min={-2}
+                  max={2}
+                  step={0.1}
+                  className="my-2"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-gray-400">Top K</label>
+                <Input
+                  type="number"
+                  value={topK}
+                  onChange={(e) => setTopK(Number(e.target.value))}
+                  className="mt-1"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-gray-400">Repetition Penalty</label>
+                <Slider
+                  value={[repetitionPenalty]}
+                  onValueChange={([value]) => setRepetitionPenalty(value)}
+                  min={1}
+                  max={2}
+                  step={0.1}
+                  className="my-2"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-gray-400">Stop Sequences</label>
+                <Input
+                  type="text"
+                  value={stopSequences}
+                  onChange={(e) => setStopSequences(e.target.value)}
+                  placeholder="Comma-separated sequences"
+                  className="mt-1"
+                />
+              </div>
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
